@@ -1,0 +1,26 @@
+version: "3"
+services:
+  app:
+    container_name: grpcsample_service
+    restart: always
+    build: ./
+    ports:
+     - "50058:50058"
+    links:
+       - db
+    networks: 
+      - backend
+  db:
+    container_name: mysql_db
+    image: mysql
+    ports:
+     - "3306:3306"
+    volumes:
+     - db_data:/var/lib/mysql
+    restart: always
+    networks: 
+      - backend
+
+networks:
+  backend:
+    driver: bridge
